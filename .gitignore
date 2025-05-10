@@ -1,3 +1,14 @@
+build
+.vscode
+.cache
+.clangd
+DeepSeek-V3
+DeepGEMM
+.clang-format
+cuda-python.py
+.log.txt
+
+
 # Prerequisites
 *.d
 

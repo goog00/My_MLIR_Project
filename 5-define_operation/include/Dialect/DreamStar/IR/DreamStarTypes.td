@@ -29,12 +29,12 @@ def DreamStar_TensorType : DreamStar_Type<"DSTensor", "ds_tensor",[]> {
     "int64_t":$device_id
   );
 
-  // 是否生成StorageClass, 无特殊情况，建议设为ture
+ // 是否生成StorageClass, 无特殊情况，建议设为ture
   let genStorageClass = 1;
     // 不建议改动
   let hasStorageCustomConstructor = 0;
 
-  // 额外的builder 声明
+ // 额外的builder 声明
   let builders = [
     TypeBuilder<(ins
       "::mlir::ArrayRef<int64_t>":$shape,
@@ -52,7 +52,7 @@ def DreamStar_TensorType : DreamStar_Type<"DSTensor", "ds_tensor",[]> {
  // 是否生成类型检验的函数声明
   let genVerifyDecl = 1;
 
-  let extraClassDeclaration = [{
+let extraClassDeclaration = [{
     // using TensorType::clone;
     // using ShapedType::Trait<NSTensorType>::getElementTypeBitWidth;
     // using ShapedType::Trait<NSTensorType>::getRank;
@@ -70,6 +70,27 @@ def DreamStar_TensorType : DreamStar_Type<"DSTensor", "ds_tensor",[]> {
 }
 
 
+
+def DreamStar_BufferType : DreamStar_Type<"Buffer", "buffer",[]>{
+   let summary = "the summary of dream-star buffer type";
+
+   let description = "description of dream-star buffer type";
+
+   let parameters = (ins 
+        ArrayRefParameter<"int64_t">:$devices
+   );
+
+   let genStorageClass = 1;
+
+   let hasStorageCustomConstructor = 0;
+
+   let assemblyFormat = "`<`$devices`>`";
+
+   let skipDefaultBuilders = 0;
+
+   let genVerifyDecl = 1;
+
+}
 
 
 #endif // DIALECT_DREAM_STAR_TYPES_TD

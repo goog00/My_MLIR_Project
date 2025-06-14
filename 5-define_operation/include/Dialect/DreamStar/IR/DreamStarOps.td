@@ -4,6 +4,19 @@
 include "Dialect/DreamStar/IR/DreamStarAttrs.td"
 include "Dialect/DreamStar/IR/DreamStarConstraints.td"
 
+//class 定义模版
+// class —— 模板定义（模板类）
+// 类似于 C++ 中的模板/类。
+// 不会直接生成实体，而是用于 复用、继承、参数化定义。
+// 可以包含 let 字段、继承、默认值、参数等。
+// 必须通过 def 或其他 class 派生使用。
+
+
+//def 定义实例
+//  def —— 实体定义（实例）
+// 类似于 C++ 中的对象或具体类定义。
+// 会被 TableGen 编译为实际的操作、类型、属性、转换等生成代码。
+// 用于定义具体的算子、属性、类型等。
 
 class DreamStar_Op<string mnemonic, list<Trait> traits = []> 
         : Op<DreamStar_Dialect, mnemonic, traits> {
@@ -20,7 +33,7 @@ class DreamStar_UnaryOp<string mnemonic,
                         : DreamStar_Op<mnemonic, traits#[]>{
      // !con 拼接作用                      
     let arguments = !con((ins 
-        OperandType:$input),
+        OperandType:$input), //声明一个名为 input 的操作数，其类型为 OperandType
         attributes
     );
 
@@ -57,6 +70,11 @@ def DreamStar_SoftmaxOp : DreamStar_UnaryOp<"softmax", AnyDSTensor, AnyDSTensor,
     let hasVerifier = 1;
 
     let builders = [
+        //OpBuilder 是用于生成 操作（Op）构造函数 的机制
+        //OpBuilder<(ins 参数类型和名称...), [{ 构造逻辑代码 }]>
+        //(ins ...)：定义构造该操作所需的参数（C++ 类型 + 名称）。
+        //[{}]：C++ 构造代码，用来构造操作数（operands）、属性（attributes）、结果类型（types）等
+        //可以写多个 OpBuilder
         OpBuilder<(ins "::mlir::Value":$input, "int64_t":$axis),
           [{
                 $_state.addOperands(input);

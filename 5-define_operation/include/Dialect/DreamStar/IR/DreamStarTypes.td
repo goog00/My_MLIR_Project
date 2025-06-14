@@ -79,7 +79,8 @@ def DreamStar_BufferType : DreamStar_Type<"Buffer", "buffer",[]>{
    let parameters = (ins 
         ArrayRefParameter<"int64_t">:$devices
    );
-
+    //当你设置 genStorageClass = 1，TableGen 会自动生成一个名为 BufferTypeStorage 的类，
+    //里面包含你定义的参数 devices（类型是 ArrayRef<int64_t>）的存储和访问接口。
    let genStorageClass = 1;
 
    let hasStorageCustomConstructor = 0;

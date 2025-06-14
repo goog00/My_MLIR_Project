@@ -115,6 +115,13 @@ void typeBrief() {
   auto vector_2D_type = mlir::VectorType::get({3, 3}, f32);
   llvm::outs() << "f32 2d 向量类型：\t";
   vector_2D_type.dump();
+
+  auto d0 = getAffineDimExpr(0, context);
+  auto d2 = getAffineDimExpr(2, context);
+
+  auto affine_map = mlir::AffineMap::get(3, 0, {d0, d2}, context);
+  llvm::outs() << "affine_map : \t";
+  affine_map.dump();
   delete context;
 }
 
@@ -131,7 +138,7 @@ void CH3() {
   llvm::outs() << "Dream Star Tensor 类型 :\t";
   ns_tensor.dump();
 
-  // 动态 DSTensor
+//   动态 DSTensor
   mlir::dream_star::DSTensorType dy_ns_tensor =
       mlir::dream_star::DSTensorType::get(&context,
                                           {mlir::ShapedType::kDynamic, 2, 3},

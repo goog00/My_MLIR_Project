@@ -38,7 +38,7 @@ void DreamStarDialect::registerType() {
   return llvm::success();
 }
 
-// 实现序列化方法
+// 实现序列化方法 来展示tensor形状，如：!dream_star.ds_tensor<?x2x3xf32,3>
 Type DSTensorType::parse(AsmParser &parser) {
   if (parser.parseLess()) return Type();
 
@@ -51,6 +51,7 @@ Type DSTensorType::parse(AsmParser &parser) {
   Type elementType;
   if (parser.parseType(elementType)) return Type();
   // Check that array is formed from allowed types.
+  // 解析冒号
   if (parser.parseComma()) return Type();
   int device_id = 0;
   if (parser.parseInteger(device_id))
@@ -59,6 +60,7 @@ Type DSTensorType::parse(AsmParser &parser) {
                                          elementType, device_id);
 }
 
+// 来展示tensor形状，如：!dream_star.ds_tensor<?x2x3xf32,3>
 void DSTensorType::print(AsmPrinter &printer) const {
   printer << "<";
   for (int64_t dim : getShape()) {

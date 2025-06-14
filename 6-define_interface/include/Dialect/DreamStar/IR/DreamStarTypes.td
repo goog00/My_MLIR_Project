@@ -14,7 +14,7 @@ class DreamStar_Type<string name, string typeMnemonic, list<Trait> traits = [],
   let typeName = dialect.name # "." # typeMnemonic;
 }
 
-
+// 接口interface 是特性
 def DreamStar_TensorType : DreamStar_Type<"DSTensor", "ds_tensor",[ShapedTypeInterface],"::mlir::TensorType"> {
 
     // 概述

@@ -299,6 +299,7 @@ void CH4() {
     auto all_to_all_op = builder.create<mlir::dream_star::AllToAllOp>(loc,buffer_op, out_buffer_op);
     llvm::outs() << "all to all op: \n";
 
+    // 将内部 IR（中间表示）打印到标准输出
     all_to_all_op->dump();
 
   }

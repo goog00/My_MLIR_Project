@@ -11,4 +11,5 @@ add_mlir_dialect_library(MLIRDreamStarDialect${ch_num}
     MLIRIR 
     MLIRTensorDialect
     MLIRDistributeParallelismInterfaces${ch_num}
+    MLIRFusionRegionInterfaces${ch_num}
 )

@@ -7,7 +7,8 @@ DeepGEMM
 .clang-format
 cuda-python.py
 .log.txt
-
+.DS_Store
+.gitignore
 
 # Prerequisites
 *.d
